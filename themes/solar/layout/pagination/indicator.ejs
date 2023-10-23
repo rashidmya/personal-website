@@ -1,0 +1,177 @@
+<%
+/*
+* Helper function
+*/
+
+function pagination_url(number) {
+  var path;
+
+  // default for index
+  var path = config.index_generator.path;
+  
+  // dirty quick fix, avoid double (//)
+  if (path=='/') { path = '' }
+  
+  if (is_archive()){
+    path = '/' + config.archive_dir;
+
+    if (is_month()){
+      // trailing zero
+      var month = ( page.month < 10 ? '0' + page.month : page.month );
+      path += '/' + page.year + '/' + month;
+    } else if (is_year()){
+      path += '/' + page.year;
+    }
+  } else if (is_category()){
+    path = '/' + config.category_dir + '/' + page.category;
+  } else if (is_tag()){
+    path = '/' + config.tag_dir + '/' + page.tag;
+  }
+
+  if (number>1) {
+      path = path + '/' + config.pagination_dir + '/' + number;
+  }
+
+  return url_for(path);
+}
+
+/* 
+* Pagination links 
+* https://glennmccomb.com/articles/how-to-build-custom-hugo-pagination/
+* Adjacent: Number of links either side of the current page
+*/
+
+var current        = page.current;
+var adjacent_links = 2;
+var max_links      = (adjacent_links * 2) + 1;
+var lower_limit    = 1 + adjacent_links;
+var upper_limit    = page.total - adjacent_links;
+%>
+
+<nav class="pagination is-small is-centered"
+     role="navigation" aria-label="pagination">
+  <% if (page.total > 1) { %>
+
+    <ul class="pagination-list">
+
+      <!-- Previous Page. -->
+      <li class="blog-previous">
+      <% if (page.prev_link) { %>
+        <a class="pagination-previous"
+           href="<%= url_for(page.prev_link) %>" 
+           rel="prev">&laquo;&nbsp;</a>
+      <% } else { %>
+        <a class="pagination-previous"
+           title="This is the first page"
+           disabled>&laquo;&nbsp;</a>
+      <% } %>
+      </li>
+
+    <% if (page.total > max_links) { %>
+      <% if (current - adjacent_links > 1) { %>
+      <!-- First Page. -->
+      <li>
+        <a href="<%= pagination_url(1) %>"
+           class="pagination-link" 
+           aria-label="Goto page 1"
+          >1</a>
+      </li>
+      <% } %>
+
+      <% if (current - adjacent_links > 2) { %>
+      <!-- Early (More Pages) Indicator. -->
+      <li>
+        <span class="pagination-ellipsis">&hellip;</span>
+      </li>
+      <% } %>
+    <% } %>
+
+    <% 
+  var cursor; 
+  for (cursor = 1; cursor <= page.total; cursor++) { 
+    var show_cursor_flag = false;
+
+
+    if (page.total > max_links) {
+      // Complex page numbers.
+
+      if (current <= lower_limit) {
+        // Lower limit pages.
+        // If the user is on a page which is in the lower limit.
+        if (cursor <= max_links) {
+          // If the current loop page is less than max_links.
+          show_cursor_flag = true;
+        }
+      } else if (current >= upper_limit) {
+        // Upper limit pages.
+        // If the user is on a page which is in the upper limit.
+        if (cursor > (page.total - max_links)) {
+          // If the current loop page is less than max_links.
+          show_cursor_flag = true;
+        }
+      } else {
+        // Middle pages.
+        if ( (cursor >= current - adjacent_links) 
+        &&   (cursor <= current + adjacent_links) ) {
+          show_cursor_flag = true;
+        }
+      }
+    } else {
+      // Simple page numbers.
+      show_cursor_flag = true;
+    }
+
+    // Show Pager.
+    if (show_cursor_flag) { %>
+      <li>
+        <% if (current != cursor) { %>
+        <a href="<%= pagination_url(cursor) %>"
+           class="pagination-link" 
+           aria-label="Goto page <%= cursor %>">
+          <%= cursor %>
+        </a>
+        <% } else { %>
+        <a class="pagination-link is-current" 
+           aria-label="Page <%= current %>">
+          <%= current %>
+        </a>
+        <% } %>
+      </li>
+      <% } /* if */ %>
+    <% } /* for */ %>
+
+    <% if (page.total > max_links) { %>
+      <% if (current + adjacent_links < page.total - 1) { %>
+      <!-- Late (More Pages) Indicator. -->
+      <li>
+        <span class="pagination-ellipsis">&hellip;</span>
+      </li>
+      <% } %>
+
+      <% if (current + adjacent_links < page.total) { %>
+      <!-- Last Page. -->
+      <li>
+        <a href="<%= pagination_url(page.total) %>"
+           class="pagination-link" 
+           aria-label="Goto page <%= page.total %>"
+          ><%= page.total %></a>
+      </li>
+      <% } %>
+    <% } %>
+
+      <!-- Next Page. -->
+      <li class="blog-next">
+      <% if (page.next_link) { %>
+        <a class="pagination-next"
+           href="<%= url_for(page.next_link) %>" 
+           rel="next">&nbsp;&raquo;</a>
+      <% } else { %>
+        <a class="pagination-next"
+           title="This is the last page"
+           disabled>&nbsp;&raquo;</a>
+      <% } %>
+      </li>
+
+    </ul>
+  <% } %>
+</nav>

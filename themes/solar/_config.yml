@@ -1,8 +1,8 @@
 nav:
-  Home: /
-  Code: /code/
-  CTF Write ups: /ctf
-  Archive: /archives
+  home: /
+  coding: /categories/coding
+  ctf write ups: /categories/ctf
+  archive: /archives
 
 customize:
     gravatar:
@@ -27,7 +27,7 @@ customize:
     social_links:
         github: https://github.com/rashidmya
     post_count: 5
-    highlight: lightcode
+    highlight: dark
 
 # keept it like this to add the root path (probably a bug)
 root: ..

@@ -1,0 +1,278 @@
+<%
+/*
+* Helper function
+*/
+
+function pagination_url(number) {
+  var path;
+
+  // default for index
+  var path = config.index_generator.path;
+  
+  // dirty quick fix, avoid double (//)
+  if (path=='/') { path = '' }
+  
+  if (is_archive()){
+    path = '/' + config.archive_dir;
+
+    if (is_month()){
+      // trailing zero
+      var month = ( page.month < 10 ? '0' + page.month : page.month );
+      path += '/' + page.year + '/' + month;
+    } else if (is_year()){
+      path += '/' + page.year;
+    }
+  } else if (is_category()){
+    path = '/' + config.category_dir + '/' + page.category;
+  } else if (is_tag()){
+    path = '/' + config.tag_dir + '/' + page.tag;
+  }
+
+  if (number>1) {
+      path = path + '/' + config.pagination_dir + '/' + number;
+  }
+
+  return url_for(path);
+}
+
+/* 
+* Pagination links 
+* https://glennmccomb.com/articles/how-to-build-custom-hugo-pagination/
+* Adjacent: Number of links either side of the current page
+*/
+
+var current        = page.current;
+var adjacent_links = 2;
+var max_links      = (adjacent_links * 2) + 1;
+var lower_limit    = 1 + adjacent_links;
+var upper_limit    = page.total - adjacent_links;
+%>
+
+<nav class="pagination is-small is-centered" 
+     role="navigation" aria-label="pagination">
+
+  <% if (page.total > 1) { %>
+
+    <!-- First Page. -->
+    <% if (page.prev != 0) { %>
+      <a class="pagination-previous"
+         href="<%= pagination_url(1) %>" 
+         aria-label="Go to first page"
+         data-rel="first">
+        <span class="is-sr-only">Go to </span>
+        First
+        <span class="is-sr-only"> page</span>
+      </a>
+        <% } else { %>
+      <a class="pagination-previous"
+         title="This is the first page"
+         aria-label="First page"
+         aria-current="true"
+         disabled>First
+        <span class="is-sr-only"> page</span>
+      </a>
+    <% } %>
+
+    <!-- Previous Page. -->
+    <% if (page.prev_link) { %>
+      <a class="pagination-previous"
+         href="<%= url_for(page.prev_link) %>" 
+         aria-label="Go to previous page"
+         rel="prev">
+        <span class="is-sr-only">Go to </span>
+        Previous
+        <span class="is-sr-only"> page</span>
+      </a>
+    <% } else { %>
+      <a class="pagination-previous"
+         title="This is the first page"
+         aria-label="First page"
+         aria-current="true"
+         disabled>Previous
+        <span class="is-sr-only"> page</span>
+      </a>
+    <% } %>
+
+    <!-- Next Page. -->
+    <% if (page.next_link) { %>
+      <a class="pagination-next"
+         href="<%= url_for(page.next_link) %>" 
+         aria-label="Go to next page"
+         rel="next">
+        <span class="is-sr-only">Go to </span>
+        Next
+        <span class="is-sr-only"> page</span>
+      </a>
+    <% } else { %>
+      <a class="pagination-next"
+         title="This is the last page"
+         aria-label="Last page"
+         aria-current="true"
+         disabled>Next
+        <span class="is-sr-only"> page</span>
+      </a>
+    <% } %>
+
+    <!-- Last Page. -->
+    <% if (page.next != 0) { %>
+      <a class="pagination-next"
+         href="<%= pagination_url(page.total) %>" 
+         aria-label="Go to last page"
+         data-rel="last">
+        <span class="is-sr-only">Go to </span>
+        Last
+        <span class="is-sr-only"> page</span>
+      </a>
+    <% } else { %>
+      <a class="pagination-next"
+         title="This is the last page"
+         aria-label="Last page"
+         aria-current="true"
+         disabled>Last
+        <span class="is-sr-only"> page</span>
+      </a>
+    <% } %>
+
+    <!-- Main Pagination List -->
+    <ul class="pagination-list">
+
+      <!-- Previous Page. -->
+      <li class="blog-previous-no-responsive">
+      <% if (page.prev_link) { %>
+        <a class="pagination-previous"
+           href="<%= url_for(page.prev_link) %>" 
+           aria-label="Go to previous page"
+           rel="prev">&laquo;&nbsp;
+           <span class="is-sr-only">Go to previous page</span>
+        </a>
+      <% } else { %>
+        <a class="pagination-previous"
+           title="This is the first page"
+           aria-label="First page"
+           aria-current="true"
+           disabled>&laquo;&nbsp;
+        <span class="is-sr-only">First page</span>
+      </a>
+      <% } %>
+      </li>
+
+    <% if (page.total > max_links) { %>
+      <% if (current - adjacent_links > 1) { %>
+      <!-- First Page. -->
+      <li class="first">
+        <a href="<%= pagination_url(1) %>"
+           class="pagination-link" 
+           aria-label="Go to page 1">
+           <span class="is-sr-only">Go to page </span>1</a>
+      </li>
+      <% } %>
+
+      <% if (current - adjacent_links > 2) { %>
+      <!-- Early (More Pages) Indicator. -->
+      <li class="pages-indicator first">
+        <span class="pagination-ellipsis">&hellip;</span>
+      </li>
+      <% } %>
+    <% } %>
+
+    <% 
+  var cursor; 
+  for (cursor = 1; cursor <= page.total; cursor++) { 
+    var show_cursor_flag = false;
+
+
+    if (page.total > max_links) {
+      // Complex page numbers.
+
+      if (current <= lower_limit) {
+        // Lower limit pages.
+        // If the user is on a page which is in the lower limit.
+        if (cursor <= max_links) {
+          // If the current loop page is less than max_links.
+          show_cursor_flag = true;
+        }
+      } else if (current >= upper_limit) {
+        // Upper limit pages.
+        // If the user is on a page which is in the upper limit.
+        if (cursor > (page.total - max_links)) {
+          // If the current loop page is less than max_links.
+          show_cursor_flag = true;
+        }
+      } else {
+        // Middle pages.
+        if ( (cursor >= current - adjacent_links) 
+        &&   (cursor <= current + adjacent_links) ) {
+          show_cursor_flag = true;
+        }
+      }
+    } else {
+      // Simple page numbers.
+      show_cursor_flag = true;
+    }
+
+    if (show_cursor_flag) { 
+      // Calculate Offset Class.
+      var page_offset_class = 'pagination--offset-' 
+                            + Math.abs(cursor - current);
+
+      // Show Pager.
+      %>
+      <li class="<%= page_offset_class %>">
+        <% if (current != cursor) { %>
+        <a href="<%= pagination_url(cursor) %>"
+           class="pagination-link" 
+           aria-label="Go to page <%= cursor %>">
+          <span class="is-sr-only">Go to page </span><%= cursor %>
+        </a>
+        <% } else { %>
+        <a class="pagination-link is-current" 
+           aria-label="Page <%= current %>"
+           aria-current="true">
+          <span class="is-sr-only">Page </span><%= current %>
+        </a>
+        <% } %>
+      </li>
+      <% } /* if */ %>
+    <% } /* for */ %>
+
+    <% if (page.total > max_links) { %>
+      <% if (current + adjacent_links < page.total - 1) { %>
+      <!-- Late (More Pages) Indicator. -->
+      <li class="pages-indicator last">
+        <span class="pagination-ellipsis">&hellip;</span>
+      </li>
+      <% } %>
+
+      <% if (current + adjacent_links < page.total) { %>
+      <!-- Last Page. -->
+      <li class="last">
+        <a href="<%= pagination_url(page.total) %>"
+           class="pagination-link" 
+           aria-label="Go to page <%= page.total %>">
+           <span class="is-sr-only">Go to page </span><%= page.total %></a>
+      </li>
+      <% } %>
+    <% } %>
+
+      <!-- Next Page. -->
+      <li class="blog-next-no-responsive">
+      <% if (page.next_link) { %>
+        <a class="pagination-next"
+           href="<%= url_for(page.next_link) %>" 
+           aria-label="Go to next page"
+           rel="next">&nbsp;&raquo;
+           <span class="is-sr-only">Go to next page</span>
+        </a>
+      <% } else { %>
+        <a class="pagination-next"
+           title="This is the last page"
+           aria-label="Last page"
+           aria-current="true"
+           disabled>&nbsp;&raquo;
+        <span class="is-sr-only">Last page</span>
+      </a>
+      <% } %>
+      </li>
+    </ul>
+  <% } %>
+</nav>
