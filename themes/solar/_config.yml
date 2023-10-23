@@ -2,6 +2,7 @@ nav:
   home: /
   blog: /categories/blog
   ctf write ups: /categories/ctf
+  search: /search
   archive: /archives
 
 customize:

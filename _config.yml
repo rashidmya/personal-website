@@ -114,3 +114,9 @@ theme: solar
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+# hexo-generate-search
+search:
+  path: search.xml
+  field: post
+  content: true
