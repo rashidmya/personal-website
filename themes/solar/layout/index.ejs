@@ -15,7 +15,7 @@
   <% if (site.tags && site.tags.length) { %>
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <%- list_tags(site.tags, { show_count: true, style: 'link' }) %>
+        <%- list_tags(site.tags, { orderby: 'length', order: 'desc', show_count: true, style: 'link' }) %>
     </div>
   <% } %>
 </section>
