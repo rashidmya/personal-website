@@ -1,5 +1,6 @@
 ---
 title: HackTheBox - Analytics
+date: 2023-10-22 17:21:06
 tags: 
     - htb
     - nmap
