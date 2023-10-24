@@ -5,6 +5,7 @@ tags:
     - mongodb
     - nextjs
     - typescript
+    - overwritemodelerror
 category: blog
 ---
 This solves the `OverwriteModelError` error when using mongodb with nextjs & typescript

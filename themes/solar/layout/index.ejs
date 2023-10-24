@@ -1,3 +1,9 @@
+<section id="about">
+  <% if (config.description) { %>
+    <%- markdown(config.description) %>
+  <% } %>
+</section>
+
 <section id="writing">
   <span class="h1"><a href="<%- url_for("archives") %>">recent posts</a></span>
   <ul class="post-list">
