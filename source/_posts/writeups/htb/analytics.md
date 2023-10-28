@@ -11,7 +11,7 @@ tags:
     - reverse shell
     - cve-2021-3493
     - linux
-category: ctf
+category: writeups
 ---
 Welcome to my [blog](https://rashidmya.dev/)! This is my very first post.
 

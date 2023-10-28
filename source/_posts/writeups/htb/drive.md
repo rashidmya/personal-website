@@ -2,7 +2,7 @@
 title: HackTheBox - Drive
 date: 2023-10-24 13:22:54
 tags: [htb, drive, ctf, writeup, gobuster, web, burpe, hashcat, sqlite3, nmap, curl, sqli, ghidra, linux]
-category: ctf
+category: writeups
 description: ctf writeup for htb drive
 ---
 

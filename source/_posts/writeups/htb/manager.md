@@ -2,7 +2,7 @@
 title: HackTheBox - Manager
 date: 2023-10-27 13:23:22
 tags: [htb, manager, ctf, writeup, kerbrute, impacket-mssqlclient, ldap, windows, mssql, smb, crackmapexec, winrm, evil-winrm, certipy, dc, rdate]
-category: ctf
+category: writeups
 description: ctf writeup for htb manager
 ---
 

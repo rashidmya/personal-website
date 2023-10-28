@@ -1,7 +1,7 @@
 ---
 title: Title
 tags: [htb, ctf, writeup]
-category: ctf
+category: writeups
 description: description
 ---
 
