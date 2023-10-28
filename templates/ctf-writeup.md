@@ -1,7 +1,7 @@
 ---
 title: Title
-tags: 
-category:
+tags: [htb, drive, ctf, writeup]
+category: ctf
 description: description
 ---
 
