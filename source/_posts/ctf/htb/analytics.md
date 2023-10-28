@@ -11,15 +11,14 @@ tags:
     - reverse shell
     - cve-2021-3493
     - linux
-category:
-    - ctf
+category: ctf
 ---
 Welcome to my [blog](https://rashidmya.dev/)! This is my very first post.
 
 
 ## Getting User
 
-### Network scan
+### Nmap
 
 Starting off with a SYN scan, when we see port 80, it tells us that there is probably a web server running.
 
@@ -81,7 +80,7 @@ Going through the website, there's a Login page that takes us to the URL data.an
 
 <br>
 
-### Exploit
+### Getting foothold
 
 Viewing the source code of the login page, we see it is embedded in JSON object and using Metabase v0.46.6, and a bit of research shows us it has a vulnerability CVE-2023-38646 which is Pre-Auth RCE.
 First, we'll listen to the port using `nc`.
@@ -189,7 +188,7 @@ PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-poli
 UBUNTU_CODENAME=jammy
 {% endvimhl %}
 
-### Privileprige Escalation
+### Privilege Escalation
 
 <br>
 I'm going to run metasploit to look for payloads I could try
