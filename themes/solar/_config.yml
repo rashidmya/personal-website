@@ -1,7 +1,7 @@
 nav:
   home: /
   blog: /categories/blog
-  ctf write ups: /categories/ctf
+  ctf writeups: /categories/ctf
   search: /search
   archive: /archives
 
