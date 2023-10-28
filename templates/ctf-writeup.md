@@ -9,7 +9,7 @@ description: description
 
 ### Nmap
 
-### Getting foothold
+### Foothold
 
 ## Getting Root
 

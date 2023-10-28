@@ -80,7 +80,7 @@ Going through the website, there's a Login page that takes us to the URL data.an
 
 <br>
 
-### Getting foothold
+### Foothold
 
 Viewing the source code of the login page, we see it is embedded in JSON object and using Metabase v0.46.6, and a bit of research shows us it has a vulnerability CVE-2023-38646 which is Pre-Auth RCE.
 First, we'll listen to the port using `nc`.
