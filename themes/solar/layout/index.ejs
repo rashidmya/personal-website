@@ -4,10 +4,12 @@
   <% } %>
 </section>
 
+<% console.log(site.posts.data[3].categories.data[0].name) %>
+
 <section id="writing">
-  <span class="h1"><a href="<%- url_for("archives") %>">recent posts</a></span>
+  <span class="h1"><a href="<%- url_for("archives") %>">recent blog posts</a></span>
   <ul class="post-list">
-    <% site.posts.sort('date', 'desc').limit(theme.customize.post_count || 5).each(function(post, i){ %>
+    <% site.posts.filter(p => p.categories.data.some(c => c.name === 'blog')).sort('date', 'desc').limit(3).each(function(post, i){ %>
       <li class="post-item">
         <%- partial('_partial/post/date', { post: post, class_name: 'meta' }) %>
         <span><%- partial('_partial/post/title', { post: post, index: true, class_name: '' }) %></span>
@@ -17,12 +19,15 @@
 </section>
 
 <section id="writing">
-  <span class="h1"><a href="<%- url_for("archives") %>">tags</a></span>
-  <% if (site.tags && site.tags.length) { %>
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <%- list_tags(site.tags, { orderby: 'length', order: 'desc', show_count: true, style: 'link' }) %>
-    </div>
-  <% } %>
+  <span class="h1"><a href="<%- url_for("archives") %>">recent ctf writeups</a></span>
+  <ul class="post-list">
+    <% site.posts.filter(p => p.categories.data.some(c => c.name === 'writeups')).sort('date', 'desc').limit(3).each(function(post, i){ %>
+      <li class="post-item">
+        <%- partial('_partial/post/date', { post: post, class_name: 'meta' }) %>
+        <span><%- partial('_partial/post/title', { post: post, index: true, class_name: '' }) %></span>
+      </li>
+    <% }); %>
+  </ul>
 </section>
+
 

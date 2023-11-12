@@ -4,6 +4,7 @@ nav:
   ctf writeups: /categories/writeups
   search: /search
   archive: /archives
+  tags: /tags
 
 customize:
     gravatar:
