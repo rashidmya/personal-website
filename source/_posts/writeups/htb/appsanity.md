@@ -6,13 +6,6 @@ category: writeups
 description: ctf writeup for htb appsanity
 ---
 
----
-title: Appsanity
-tags: [htb, ctf, writeup]
-category: writeups
-description: description
----
-
 # Tools
 
 - nmap
@@ -24,6 +17,8 @@ description: description
 - metasploit
 - dnSpy
 - Evil-WinRM
+
+<br>
 
 ## Getting User
 
@@ -80,7 +75,7 @@ Nmap done: 1 IP address (1 host up) scanned in 60.55 seconds
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
+<br>
 
 ### Foothold
 
@@ -276,7 +271,7 @@ type user.txt
 ee64bccf15802ae700de4ccf1a4d9944
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
+<br>
 
 ## Getting Root
 
@@ -466,6 +461,8 @@ It tells us about *C:\Program Files\ReportManagement\Libraries* and *externalupl
 
 Going to *C:\Program Files\ReportManagement\Libraries* , we see *externalupload.dll* doesn't exist.
 We can try to create a malicious dll to escalate privilege
+
+<br>
 
 ### Privilege Escalation
 Create a payload using **msfvenom**  and run a reverse shell in metasploit
