@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Codify
 date: 2023-11-12 10:33:02
-tags: [htb, ctf, writeup, codify, nmap, netcat, sqlite3, python]
+tags: [htb, ctf, writeup, codify, nmap, netcat, sqlite3, python, linux]
 category: writeups
 description: htb writeup for htb codify
 ---

@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Keeper
 date: 2023-11-19 18:36:07
-tags: [htb, ctf, writeup, putty, keepass]
+tags: [htb, ctf, writeup, putty, keepass, linux]
 category: writeups
 description: htb keeper writeup
 ---

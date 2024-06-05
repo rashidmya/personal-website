@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Sau
 date: 2023-11-20 00:00:01
-tags: [htb, ctf, writeup]
+tags: [htb, ctf, writeup, linux]
 category: writeups
 description: htb sau writeup
 ---

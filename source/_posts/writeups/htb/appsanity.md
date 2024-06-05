@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Appsanity
 date: 2023-11-12 10:22:36
-tags: [htb, ctf, writeup, appsanity, nmap, gobuster, ffuf, burpe, msfvenom, metasploit, dnSpy, evil-winrm]
+tags: [htb, ctf, writeup, appsanity, nmap, gobuster, ffuf, burpe, msfvenom, metasploit, dnSpy, evil-winrm, windows]
 category: writeups
 description: ctf writeup for htb appsanity
 ---

@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - CozyHosting
 date: 2023-11-17 23:53:02
-tags: [htb, ctf, writeup, ffuf, netcat, jd-gui, psql, hashcat]
+tags: [htb, ctf, writeup, ffuf, netcat, jd-gui, psql, hashcat, linux]
 category: writeups
 description: cozyhosting htb writeup
 ---

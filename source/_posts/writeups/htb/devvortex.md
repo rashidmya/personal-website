@@ -1,7 +1,7 @@
 ---
 title: HackTheBox - Devvortex
 date: 2023-11-26 00:00:00
-tags: [htb, ctf, writeup, hashcat, ffuf, msfvenom, mysql]
+tags: [htb, ctf, writeup, hashcat, ffuf, msfvenom, mysql, linux]
 category: writeups
 description: htb devvortex writeup
 ---
